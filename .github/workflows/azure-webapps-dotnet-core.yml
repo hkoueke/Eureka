@@ -62,7 +62,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
         
       - name: Test with dotnet
-        run: dotnet test --no-restore --no-build
+        run: dotnet test --no-restore --verbosity normal
 
       #- name: dotnet publish
         #run: dotnet publish --configuration Release -o ${{env.DOTNET_ROOT}}/publish --no-build
