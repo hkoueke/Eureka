@@ -3,14 +3,15 @@ using System.Linq;
 using EurekaBot.Domain.Entities.Users;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using User = Telegram.Bot.Types.User;
 
 namespace EurekaBot.Application.Extensions;
 
 public static class TelegramExtensions
 {
-    public static Domain.Entities.Users.User ToUserEntity(this User user)
+    public static Domain.Entities.Users.User ToUserEntity(this Telegram.Bot.Types.User user)
     {
-        return new Domain.Entities.User(user.Id, user.FirstName)
+        return new Domain.Entities.Users.User(user.Id, user.FirstName)
         {
             Username = user.Username,
             LanguageCode = user.LanguageCode,
