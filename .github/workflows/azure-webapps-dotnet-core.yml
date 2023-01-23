@@ -27,6 +27,9 @@ env:
 on:
   push:
     branches: [ "master" ]
+    paths:
+    - '**.sln'
+    - '**.csproj'
   workflow_dispatch:
 
 permissions:
@@ -53,16 +56,16 @@ jobs:
             ${{ runner.os }}-nuget-
             
       - name: Restore
-        run: dotnet restore ./EurekaBot.sln
+        run: dotnet restore
 
       - name: Build with dotnet
-        run: dotnet build ./EurekaBot.sln --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore
         
       - name: Test with dotnet
-        run: dotnet test ./EurekaBot.Tests.Unit/EurekaBot.Tests.Unit.csproj --no-restore --no-build
+        run: dotnet test --no-restore --no-build
 
       #- name: dotnet publish
-        #run: dotnet publish ./EurekaBot.sln --configuration Release -o ${{env.DOTNET_ROOT}}/publish --no-build
+        #run: dotnet publish --configuration Release -o ${{env.DOTNET_ROOT}}/publish --no-build
 
       #- name: Upload artifact for deployment job
         #uses: actions/upload-artifact@v3
