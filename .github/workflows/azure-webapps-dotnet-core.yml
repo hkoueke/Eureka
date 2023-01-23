@@ -27,9 +27,6 @@ env:
 on:
   push:
     branches: [ "master" ]
-    paths:
-    - '**.sln'
-    - '**.csproj'
   workflow_dispatch:
 
 permissions:
@@ -64,8 +61,8 @@ jobs:
       - name: Test with dotnet
         run: dotnet test --no-restore --verbosity normal
 
-      #- name: dotnet publish
-        #run: dotnet publish --configuration Release -o ${{env.DOTNET_ROOT}}/publish --no-build
+      - name: dotnet publish
+        run: dotnet publish --configuration Release -o ${{env.DOTNET_ROOT}}/publish --no-build
 
       #- name: Upload artifact for deployment job
         #uses: actions/upload-artifact@v3
