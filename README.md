@@ -1,1 +1,1 @@
-# EurekaBot
+[![Build](https://github.com/hkoueke/Eureka/actions/workflows/azure-webapps-dotnet-core.yml/badge.svg?branch=master)](https://github.com/hkoueke/Eureka/actions/workflows/azure-webapps-dotnet-core.yml)
