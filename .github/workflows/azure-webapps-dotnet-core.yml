@@ -59,7 +59,7 @@ jobs:
         run: dotnet build ./EurekaBot.sln --configuration Release --no-restore
         
       - name: Test with dotnet
-        run: ddotnet test Eurekabot.Tests.Unit --no-restore --no-build
+        run: dotnet test Eurekabot.Tests.Unit --no-restore --no-build
 
       #- name: dotnet publish
         #run: dotnet publish ./EurekaBot.sln --configuration Release -o ${{env.DOTNET_ROOT}}/publish --no-build
