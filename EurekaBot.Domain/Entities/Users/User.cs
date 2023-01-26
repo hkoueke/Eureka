@@ -5,6 +5,7 @@ using System.Linq;
 using DomainErrors = EurekaBot.Domain.Errors.Errors;
 using EurekaBot.Domain.Entities.Shared;
 using EurekaBot.Domain.Entities.Shared.Primitives;
+using EurekaBot.Domain.Shared;
 
 namespace EurekaBot.Domain.Entities.Users;
 
@@ -20,9 +21,9 @@ public sealed class User : AggregateRoot
 
     public Guid? CountryId { get; private set; }
 
-    public long TelegramId { get; }
+    public long TelegramId { get; private set; }
 
-    public string FirstName { get; }
+    public string FirstName { get; private set; }
 
     public string? Username { get; set; }
 
@@ -38,7 +39,7 @@ public sealed class User : AggregateRoot
 
     public IEnumerable<Post> Posts => _posts;
 
-    public IEnumerable<Role> Roles { get; } = new List<Role>();
+    public IEnumerable<Role> Roles { get; private set; } = new List<Role>();
 
     public void SetReplyPath(long chatId)
     {
