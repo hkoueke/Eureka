@@ -12,7 +12,7 @@ public sealed class Country : Entity
         Iso2Code = iso2Code;
     }
 
-    public string Iso2Code { get; }
+    public string Iso2Code { get; private set; }
 
     public static ErrorOr<Country> CreateNew(string iso2Code)
     {

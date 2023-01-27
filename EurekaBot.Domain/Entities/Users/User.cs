@@ -5,7 +5,7 @@ using System.Linq;
 using DomainErrors = EurekaBot.Domain.Errors.Errors;
 using EurekaBot.Domain.Entities.Shared;
 using EurekaBot.Domain.Entities.Shared.Primitives;
-using EurekaBot.Domain.Shared;
+using EurekaBot.Domain.Services;
 
 namespace EurekaBot.Domain.Entities.Users;
 
@@ -65,17 +65,16 @@ public sealed class User : AggregateRoot
 
     public ErrorOr<Success> SetCountry(Guid countryId)
     {
-        if (countryId == default)
+        var result = ErrorOrHelpers.Ensure(countryId,
+            (x => x != default, DomainErrors.Country.NotFound),
+            (x => x != CountryId, DomainErrors.User.CountryAlreadySet));
+
+        if (result.IsError)
         {
-            return DomainErrors.Country.NotSupported;
+            return result.Errors;
         }
 
-        if (CountryId == countryId)
-        {
-            return DomainErrors.User.CountryAlreadySet;
-        }
-
-        CountryId = countryId;
+        CountryId = result.Value;
 
         return Result.Success;
     }

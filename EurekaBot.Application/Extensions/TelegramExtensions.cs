@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using EurekaBot.Domain.Entities.Users;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using User = Telegram.Bot.Types.User;

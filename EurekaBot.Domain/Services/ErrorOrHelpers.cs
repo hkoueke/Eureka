@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EurekaBot.Domain.Shared;
+namespace EurekaBot.Domain.Services;
 
 internal static class ErrorOrHelpers
 {
@@ -21,11 +21,12 @@ internal static class ErrorOrHelpers
         return Combine(results.ToArray());
     }
 
-    public static TResult Map<TSource, TResult>(this ErrorOr<TSource> result, Func<TSource, TResult> mapper)
+    public static TResult Map<TSource, TResult>(
+        this ErrorOr<TSource> result,
+        Func<TSource, TResult> mapper) where TResult : class
     {
         return mapper(result.Value);
     }
-
 
     private static ErrorOr<T> Ensure<T>(T value, Func<T, bool> predicate, Error error)
     {
@@ -36,13 +37,14 @@ internal static class ErrorOrHelpers
     {
         if (results.Any(x => x.IsError))
         {
-            var distinctErrors =
+            var errors =
                 results
+                    .Where(x => x.IsError)
                     .SelectMany(r => r.Errors)
                     .Distinct()
                     .ToList();
 
-            return ErrorOr<T>.From(distinctErrors);
+            return ErrorOr<T>.From(errors);
         }
 
         return results[0].Value;
