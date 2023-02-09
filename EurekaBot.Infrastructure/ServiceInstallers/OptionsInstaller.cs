@@ -10,5 +10,9 @@ internal sealed class OptionsInstaller : IServiceInstaller
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureOptions<MySqlOptionsSetup>();
+        //services.AddOptions<MySqlOptions>()
+        //    .BindConfiguration("Email")
+        //    .ValidateDataAnnotations()
+        //    .ValidateOnStart();
     }
 }

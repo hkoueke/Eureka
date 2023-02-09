@@ -51,8 +51,8 @@ public static class StringExtensions
 
         return startOnly switch
         {
-            true => string.Concat(separators, trimmed[..visibleChars]),
-            _ => string.Join(separators, trimmed[..visibleChars], trimmed[^visibleChars..])
+            true => string.Concat(separators.ToUpper(), trimmed[..visibleChars]),
+            _ => string.Join(separators.ToUpper(), trimmed[..visibleChars], trimmed[^visibleChars..])
         };
     }
 }
