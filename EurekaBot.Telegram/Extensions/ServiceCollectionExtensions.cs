@@ -26,11 +26,11 @@ public static class ServiceCollectionExtensions
             service.Install(services, configuration);
         }
 
+        return services;
+
         static bool IsAssignableToType<T>(TypeInfo typeInfo) =>
             typeof(T).IsAssignableFrom(typeInfo) &&
             !typeInfo.IsAbstract &&
             !typeInfo.IsInterface;
-
-        return services;
     }
 }

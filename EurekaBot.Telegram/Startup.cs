@@ -1,5 +1,6 @@
 ﻿using EurekaBot.Telegram.Controllers;
 using EurekaBot.Telegram.Extensions;
+using EurekaBot.Telegram.Middlewares;
 using EurekaBot.Telegram.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,13 +36,11 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
-        //app.UseHttpsRedirection();
-
         app.UseRouting();
 
-        app.UseUserDataDeletion()
-           .UseUserRegistration()
-           .UseRequestCulture();
+        app.UseMiddleware<RequestCultureMiddleware>();
+        app.UseMiddleware<UserDataDeletionMiddleware>();
+        app.UseMiddleware<UserRegistrationMiddleware>();
 
         app.UseEndpoints(builder =>
         {

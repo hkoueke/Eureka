@@ -6,6 +6,7 @@ using EurekaBot.Infrastructure.Persistence.Repositories;
 using EurekaBot.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NodaTime;
 using NodaTime.TimeZones;
 
@@ -15,20 +16,16 @@ internal sealed class ServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        services
-           .AddSingleton<IDateTimeZoneSource>(TzdbDateTimeZoneSource.Default)
-           .AddSingleton<IDateTimeZoneProvider, DateTimeZoneCache>()
-           .AddSingleton<IDateTimeService, DateTimeService>()
-           .AddScoped<UpdateAuditableEntitiesInterceptor>();
+        services.TryAddSingleton<IDateTimeZoneSource>(TzdbDateTimeZoneSource.Default);
+        services.TryAddSingleton<IDateTimeZoneProvider, DateTimeZoneCache>();
+        services.TryAddSingleton<IDateTimeService, DateTimeService>();
+        services.TryAddScoped<UpdateAuditableEntitiesInterceptor>();
+        services.TryAddScoped<IRegionCodeEvaluator, RegionCodeEvaluator>();
 
-        services
-            .AddScoped<IRegionCodeEvaluator, RegionCodeEvaluator>();
-
-        services
-            .AddScoped<IUnitOfWork, UnitOfWork>()
-            .AddScoped<ICountryRepository, CountryRepository>()
-            .AddScoped<IPostRepository, PostRepository>()
-            .AddScoped<IRoleRepository, RoleRepository>()
-            .AddScoped<IUserRepository, UserRepository>();
+        services.TryAddScoped<IUnitOfWork, UnitOfWork>();
+        services.TryAddScoped<ICountryRepository, CountryRepository>();
+        services.TryAddScoped<IPostRepository, PostRepository>();
+        services.TryAddScoped<IRoleRepository, RoleRepository>();
+        services.TryAddScoped<IUserRepository, UserRepository>();
     }
 }
